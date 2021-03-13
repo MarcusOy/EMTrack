@@ -8,6 +8,10 @@ import routes from './routes';
 const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
+  // To make gh-pages work
+  base: '/EMTrack/',
+  publicPath: '/EMTrack/',
+  
   hash: true,
   antd: {},
   dva: {
@@ -53,6 +57,6 @@ export default defineConfig({
     // 或者使用在线的版本
     // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
     schemaPath: join(__dirname, 'oneapi.json'),
-    mock: false,
+    mock: true,
   },
 });

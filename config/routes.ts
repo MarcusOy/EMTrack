@@ -17,8 +17,8 @@
   },
   {
     path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
+    name: 'Home',
+    icon: 'home',
     component: './Welcome',
   },
   {
@@ -41,6 +41,15 @@
     icon: 'table',
     path: '/list',
     component: './TableList',
+    access: 'canAdmin'
+  },
+  {
+    name: 'Calls',
+    path: '/calls',
+    component: './Call',
+    icon: 'PhoneOutlined',
+    access: 'isOperator'
+
   },
   {
     path: '/',

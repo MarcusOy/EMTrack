@@ -1,60 +1,63 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import styles from './Welcome.less';
+import { Card, Alert, Select, Typography } from 'antd';
+import { DataStore } from '@/data/DataStore';
 
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
+const Welcome = () => {
+	const { Option, OptGroup } = Select;
+	const role = DataStore.useState((s) => s.role);
+	function handleChange(value: any) {
+		DataStore.update((s) => {
+			localStorage.setItem('role', value);
+			window.location.reload();
+		});
+	}
 
-export default (): React.ReactNode => {
-  const intl = useIntl();
-  return (
-    <PageContainer>
-      <Card>
-        <Alert
-          message="Hello"
-          type="success"
-          showIcon
-          banner
-          style={{
-            margin: -12,
-            marginBottom: 24,
-          }}
-        />
-        <Typography.Text strong>
-          <FormattedMessage id="pages.welcome.advancedComponent" defaultMessage="高级表格" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="欢迎使用" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-table</CodePreview>
-        <Typography.Text
-          strong
-          style={{
-            marginBottom: 12,
-          }}
-        >
-          <FormattedMessage id="pages.welcome.advancedLayout" defaultMessage="高级布局" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/layout"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="欢迎使用" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
-      </Card>
-    </PageContainer>
-  );
+	return (
+		<PageContainer>
+			<Card>
+				<Typography.Title>Role Selection</Typography.Title>
+				<Alert
+					message='Welcome to EMTrack, a prototype by Team 19. To get started, select a role with the dropdown below.'
+					type='info'
+					showIcon
+					banner
+					style={{
+						marginBottom: 24,
+					}}
+				/>
+				<Select
+					placeholder='Select a role'
+					defaultValue={role}
+					style={{ width: 200 }}
+					onChange={handleChange}
+				>
+					<OptGroup label='Manager'>
+						<Option value='operator'>Operator</Option>
+						<Option value='emt'>EMT</Option>
+					</OptGroup>
+					<OptGroup label='Managerial'>
+						<Option value='supervisor'>Supervisor</Option>
+						<Option value='manager'>Manager</Option>
+						<Option value='cmo'>CMO</Option>
+					</OptGroup>
+				</Select>
+				{role ? (
+					<Alert
+						message='Now that you have selected a role, click a menu item on the left.'
+						type='success'
+						showIcon
+						banner
+						style={{
+							marginTop: 24,
+						}}
+					/>
+				) : (
+					<></>
+				)}
+			</Card>
+		</PageContainer>
+	);
 };
+
+export default Welcome;
