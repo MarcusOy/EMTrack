@@ -14,7 +14,7 @@ const Welcome = () => {
 	}
 
 	return (
-		<PageContainer>
+		<PageContainer waterMarkProps={{ fontSize: 0 }}>
 			<Card>
 				<Typography.Title>Role Selection</Typography.Title>
 				<Alert
