@@ -52,6 +52,13 @@
 
   },
   {
+    name: 'Emergencies',
+    path: '/emergencies',
+    component: './Emergency',
+    icon: 'WarningOutlined',
+    access: 'isOperator'
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

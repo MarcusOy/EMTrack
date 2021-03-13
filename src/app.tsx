@@ -58,11 +58,13 @@ export async function getInitialState(): Promise<{
 // https://umijs.org/zh-CN/plugins/plugin-layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 	return {
+		// eslint-disable-next-line react/display-name
 		rightContentRender: () => <RightContent />,
 		disableContentMargin: false,
 		waterMarkProps: {
 			content: initialState?.currentUser?.name,
 		},
+		// eslint-disable-next-line react/display-name
 		footerRender: () => <Footer />,
 		onPageChange: () => {
 			const { location } = history;
@@ -127,6 +129,7 @@ const codeMessage = {
 /** 异常处理程序
  * @see https://beta-pro.ant.design/docs/request-cn
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const errorHandler = (error: ResponseError) => {
 	const { response } = error;
 	if (response && response.status) {
