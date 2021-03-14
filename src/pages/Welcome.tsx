@@ -3,14 +3,12 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Alert, Select, Typography } from 'antd';
 import { DataStore } from '@/data/DataStore';
 
-const Welcome = () => {
+const Welcome: React.FC = () => {
 	const { Option, OptGroup } = Select;
 	const role = DataStore.useState((s) => s.role);
-	function handleChange(value: any) {
-		DataStore.update((s) => {
-			localStorage.setItem('role', value);
-			window.location.reload();
-		});
+	function handleChange(value: string) {
+		localStorage.setItem('role', value);
+		window.location.href = '/EMTrack';
 	}
 
 	return (
@@ -32,7 +30,7 @@ const Welcome = () => {
 					style={{ width: 200 }}
 					onChange={handleChange}
 				>
-					<OptGroup label='Manager'>
+					<OptGroup label='Employee'>
 						<Option value='operator'>Operator</Option>
 						<Option value='emt'>EMT</Option>
 					</OptGroup>

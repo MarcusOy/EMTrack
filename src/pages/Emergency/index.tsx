@@ -35,7 +35,7 @@ interface IEmergencyRow {
 	status: 'No Team Dispatched' | 'Dispatched';
 }
 
-const dataSource: ICallRow[] = new Array(50).fill(null).map<ICallRow>((e) => {
+const dataSource: ICallRow[] = new Array(50).fill(null).map<ICallRow>(() => {
 	return {
 		firstName: faker.name.firstName(),
 		lastName: faker.name.lastName(),
@@ -65,7 +65,7 @@ const menu = (
 	</Menu>
 );
 
-const CallPage = () => {
+const CallPage: React.FC = () => {
 	const columns = [
 		{
 			title: 'First Name',
@@ -108,7 +108,7 @@ const CallPage = () => {
 
 	// Drawer
 	const [visible, setVisible] = useState(false);
-	const [isNewEmergency, setIsNewEmergency] = useState(false);
+	// const [isNewEmergency, setIsNewEmergency] = useState(false);
 	const showDrawer = () => {
 		setVisible(true);
 	};
@@ -118,9 +118,9 @@ const CallPage = () => {
 
 	// Modal
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const showModal = () => {
-		setIsModalVisible(true);
-	};
+	// const showModal = () => {
+	// 	setIsModalVisible(true);
+	// };
 
 	const handleOk = () => {
 		setIsModalVisible(false);
@@ -130,7 +130,7 @@ const CallPage = () => {
 		setIsModalVisible(false);
 	};
 
-	const { Option, OptGroup } = Select;
+	const { Option } = Select;
 
 	return (
 		<>
@@ -158,6 +158,7 @@ const CallPage = () => {
 			<Drawer
 				title='Emergency'
 				placement='right'
+				width={350}
 				closable={false}
 				onClose={onClose}
 				visible={visible}
@@ -199,7 +200,7 @@ const CallPage = () => {
 					>
 						<Dropdown.Button overlay={menu}>#1</Dropdown.Button>
 					</Form.Item>
-					{isNewEmergency ? (
+					{/* {isNewEmergency ? (
 						<>
 							<Form.Item
 								name='emergencyDesc'
@@ -252,7 +253,7 @@ const CallPage = () => {
 						</>
 					) : (
 						<></>
-					)}
+					)} */}
 				</Form>
 			</Drawer>
 			<Modal
