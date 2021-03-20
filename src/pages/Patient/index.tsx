@@ -12,6 +12,9 @@ import {
 	Dropdown,
 	Table,
 	Tag,
+	Row,
+	Col,
+	Space,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import faker from 'faker';
@@ -20,59 +23,44 @@ import React, { useState } from 'react';
 interface ICallRow {
 	firstName: string;
 	lastName: string;
-	phoneNumber: string;
-	address: string;
-	isNewEmergency: boolean;
-	emergency?: IEmergencyRow;
-	status: 'No Team Dispatched' | 'Dispatched';
+	treatment?: ITreatmentRow;
+	injuries?: IInjuriesRow;
+	status: 'Update' | 'Update';
 }
 
-interface IEmergencyRow {
-	emergencyDesc: string;
-	emergencyType: 'Grade 1' | 'Grade 2' | 'Grade 3';
-	emergencyDetails: string;
-	additionalInformation: string;
-	status: 'No Team Dispatched' | 'Dispatched';
+interface ITreatmentRow {
+	treatmentDesc: string;
+	treatmentLocation: string;
 }
 
-const dataSource: ICallRow[] = new Array(50).fill(null).map<ICallRow>((e) => {
+interface IInjuriesRow {
+	injuryDesc: string;
+}
+
+const dataSource: ICallRow[] = new Array(50).fill(null).map<ICallRow>(() => {
 	return {
 		firstName: faker.name.firstName(),
 		lastName: faker.name.lastName(),
-		phoneNumber: faker.phone.phoneNumber(),
-		address: faker.address.streetAddress(),
-		isNewEmergency: faker.random.boolean(),
-		emergency: {
-			emergencyDesc: faker.lorem.words(4),
-			emergencyType: faker.random.arrayElement([
-				'Grade 1',
-				'Grade 2',
-				'Grade 3',
-			]),
-			emergencyDetails: faker.lorem.paragraph(),
-			additionalInformation: faker.lorem.paragraph(),
-			status: faker.random.arrayElement(['Dispatched', 'Dispatched']),
+		treatment: {
+			treatmentDesc: faker.lorem.words(4),
+			treatmentLocation: faker.address,
 		},
-		status: faker.random.arrayElement(['No Team Dispatched', 'Dispatched']),
+		injuries: {
+			injuryDesc: faker.lorem.words(4),
+		},
+		status: faker.random.arrayElement(['Update', 'Update']),
 	};
 });
-function handleButtonClick(e) {
-	console.log('click left button', e);
-}
-
-function handleMenuClick(e) {
-	console.log('click', e);
-}
 
 const menu = (
-	<Menu onClick={handleMenuClick}>
+	<Menu>
 		<Menu.Item key='1'>#1</Menu.Item>
 		<Menu.Item key='2'>#2</Menu.Item>
 		<Menu.Item key='3'>#3</Menu.Item>
 	</Menu>
 );
 
-const CallPage = () => {
+const PatientPage: React.FC = () => {
 	const columns = [
 		{
 			title: 'First Name',
@@ -85,15 +73,25 @@ const CallPage = () => {
 			key: 'lastName',
 		},
 		{
-			title: 'Emergency',
-			dataIndex: 'emergency',
-			key: 'emergency',
+			title: 'Treatment',
+			dataIndex: 'treatment',
+			key: 'treatment',
+
 			// eslint-disable-next-line react/display-name
-			render: (emergency: IEmergencyRow) => (
-				<p>{emergency.emergencyDesc}</p>
+			render: (treatment: ITreatmentRow) => (
+				<p>{treatment.treatmentDesc}</p>
 			),
 		},
 		{
+			title: 'Injuries',
+			dataIndex: 'injuries',
+			key: 'injuries',
+
+			// eslint-disable-next-line react/display-name
+			render: (injuries: IInjuriesRow) => <p>{injuries.injuryDesc}</p>,
+		},
+		{
+			/*
 			title: 'Status',
 			key: 'status',
 			dataIndex: 'status',
@@ -110,12 +108,13 @@ const CallPage = () => {
 					{status.toUpperCase()}
 				</Tag>
 			),
+        */
 		},
 	];
 
 	// Drawer
 	const [visible, setVisible] = useState(false);
-	const [isNewEmergency, setIsNewEmergency] = useState(false);
+	// const [isNewEmergency, setIsNewEmergency] = useState(false);
 	const showDrawer = () => {
 		setVisible(true);
 	};
@@ -125,9 +124,9 @@ const CallPage = () => {
 
 	// Modal
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const showModal = () => {
-		setIsModalVisible(true);
-	};
+	// const showModal = () => {
+	// 	setIsModalVisible(true);
+	// };
 
 	const handleOk = () => {
 		setIsModalVisible(false);
@@ -137,14 +136,14 @@ const CallPage = () => {
 		setIsModalVisible(false);
 	};
 
-	const { Option, OptGroup } = Select;
+	const { Option } = Select;
 
 	return (
 		<>
 			<PageContainer waterMarkProps={{ fontSize: 0 }}>
 				<Card>
 					<Alert
-						message='This is the Emergency Dashboard, where an operator will dispatch teams to emergencies.'
+						message='This is the Patient Dashboard, where an EMT can update patient care data on scene.'
 						type='info'
 						showIcon
 						banner
@@ -152,12 +151,36 @@ const CallPage = () => {
 							marginBottom: 24,
 						}}
 					/>
-					<Button
-						type='primary'
-						onClick={showDrawer}
-						style={{ marginBottom: 24 }}
-					>
-						Dispatch Team
+					<Row>
+						<Col span={12}>
+							<Input size='medium' placeholder='First Name' />
+							<br />
+							<br />
+							<Input size='medium' placeholder='Last Name' />
+							<br />
+							<br />
+							<TextArea
+								placeholder='Treatment'
+								autoSize={{ minRows: 3, maxRows: 5 }}
+							/>
+							<br />
+							<br />
+							<TextArea
+								placeholder='Injuries'
+								autoSize={{ minRows: 3, maxRows: 5 }}
+							/>
+							<br />
+							<br />
+						</Col>
+						<Col span={12}>
+							<TextArea
+								placeholder='Additional Details'
+								autoSize={{ minRows: 10, maxRows: 15 }}
+							/>
+						</Col>
+					</Row>
+					<Button type='primary' style={{ marginBottom: 24 }}>
+						Add Patient
 					</Button>
 					<Table dataSource={dataSource} columns={columns} />
 				</Card>
@@ -165,6 +188,7 @@ const CallPage = () => {
 			<Drawer
 				title='Emergency'
 				placement='right'
+				width={350}
 				closable={false}
 				onClose={onClose}
 				visible={visible}
@@ -185,8 +209,8 @@ const CallPage = () => {
 			>
 				<Form layout='vertical' hideRequiredMark>
 					<Form.Item
-						name='teamName'
-						label='Team Name'
+						name='patientName'
+						label='Patient Full Name'
 						rules={[
 							{
 								required: true,
@@ -204,14 +228,9 @@ const CallPage = () => {
 							},
 						]}
 					>
-						<Dropdown.Button
-							onClick={handleButtonClick}
-							overlay={menu}
-						>
-							#1
-						</Dropdown.Button>
+						<Dropdown.Button overlay={menu}>#1</Dropdown.Button>
 					</Form.Item>
-					{isNewEmergency ? (
+					{/* {isNewEmergency ? (
 						<>
 							<Form.Item
 								name='emergencyDesc'
@@ -264,11 +283,11 @@ const CallPage = () => {
 						</>
 					) : (
 						<></>
-					)}
+					)} */}
 				</Form>
 			</Drawer>
 			<Modal
-				title='Resolve Emergency'
+				title='Update Patient Care'
 				visible={isModalVisible}
 				onOk={handleOk}
 				onCancel={handleCancel}
@@ -277,7 +296,7 @@ const CallPage = () => {
 				<p>Phone Number: (555) 555-555</p>
 				<p>
 					Follow up with a team and enter any additional details
-					regarding dispatch status below:
+					regarding patient status below:
 				</p>
 				<TextArea rows={4} />
 			</Modal>
@@ -285,4 +304,4 @@ const CallPage = () => {
 	);
 };
 
-export default CallPage;
+export default PatientPage;
