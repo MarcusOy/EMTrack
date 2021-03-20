@@ -51,6 +51,13 @@
 		access: 'isOperator',
 	},
 	{
+		name: 'Shift',
+		path: '/shift',
+		component: './Shift',
+		icon: 'ClockCircleOutlined',
+		access: 'isEMT',
+	},
+	{
 		name: 'Emergencies',
 		path: '/emergencies',
 		component: './Emergency',
@@ -58,6 +65,7 @@
 		access: 'isOperator',
 	},
 	{
+
 		name: 'Patients',
 		path: '/patients',
 		component: './Patient',
