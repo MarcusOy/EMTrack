@@ -65,6 +65,14 @@
 		access: 'isOperator',
 	},
 	{
+
+		name: 'Patients',
+		path: '/patients',
+		component: './Patient',
+		icon: 'WarningOutlined',
+		access: 'isEMT',
+	},
+	{
 		path: '/',
 		redirect: '/welcome',
 	},
