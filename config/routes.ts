@@ -65,12 +65,18 @@
 		access: 'isOperator',
 	},
 	{
-
 		name: 'Patients',
 		path: '/patients',
 		component: './Patient',
 		icon: 'WarningOutlined',
 		access: 'isEMT',
+	},
+	{
+		name: 'Reports',
+		path: '/reports',
+		component: './Report',
+		icon: 'ExceptionOutlined',
+		access: 'isManager',
 	},
 	{
 		path: '/',
