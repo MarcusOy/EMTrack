@@ -65,6 +65,13 @@
 		access: 'isEMT',
 	},
 	{
+		name: 'Subscribers',
+		path: '/subscribers',
+		component: './Subscribers',
+		icon: 'WarningOutlined',
+		access: 'isManager',
+	},
+	{
 		path: '/',
 		redirect: '/welcome',
 	},
