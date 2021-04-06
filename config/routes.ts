@@ -76,9 +76,9 @@
 		path: '/subscribers',
 		component: './Subscribers',
 		icon: 'WarningOutlined',
-    access: 'isManager',
-  },
-  {
+		access: 'isManager',
+	},
+	{
 		name: 'Reports',
 		path: '/reports',
 		component: './Report',
