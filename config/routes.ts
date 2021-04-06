@@ -72,6 +72,13 @@
 		access: 'isEMT',
 	},
 	{
+		name: 'Subscribers',
+		path: '/subscribers',
+		component: './Subscribers',
+		icon: 'WarningOutlined',
+    access: 'isManager',
+  },
+  {
 		name: 'Reports',
 		path: '/reports',
 		component: './Report',
