@@ -51,6 +51,13 @@
 		access: 'isOperator',
 	},
 	{
+		name: 'Shift',
+		path: '/shift',
+		component: './Shift',
+		icon: 'ClockCircleOutlined',
+		access: 'isEMT',
+	},
+	{
 		name: 'Emergencies',
 		path: '/emergencies',
 		component: './Emergency',
@@ -69,6 +76,13 @@
 		path: '/subscribers',
 		component: './Subscribers',
 		icon: 'WarningOutlined',
+    access: 'isManager',
+  },
+  {
+		name: 'Reports',
+		path: '/reports',
+		component: './Report',
+		icon: 'ExceptionOutlined',
 		access: 'isManager',
 	},
 	{
