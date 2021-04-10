@@ -86,6 +86,13 @@
 		access: 'isManager',
 	},
 	{
+		name: 'Documentation',
+		path: '/documentation',
+		component: './Documentation',
+		icon: 'ExceptionOutlined',
+		access: 'isEMT',
+	},
+	{
 		path: '/',
 		redirect: '/welcome',
 	},
