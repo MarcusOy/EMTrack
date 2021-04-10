@@ -1,23 +1,10 @@
-import { CalendarOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-layout';
 import {
-	Alert,
-	Button,
-	Card,
-	Drawer,
-	Form,
-	Input,
-	message,
-	Modal,
-	Popconfirm,
-	Select,
-	Space,
-	Switch,
-	Table,
-	Tag,
-	Typography,
-} from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
+	CalendarOutlined,
+	ClockCircleOutlined,
+	BankOutlined,
+} from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Alert, Button, Card, Popconfirm, Table, Tag, Typography } from 'antd';
 import faker from 'faker';
 import React, { useState } from 'react';
 
@@ -163,6 +150,11 @@ const ShiftPage = () => {
 						}
 						style={{ width: 300, marginBottom: 24 }}
 					>
+						<span>
+							<BankOutlined /> Base Station ID BS-
+							{faker.random.alphaNumeric(4)}
+						</span>
+						<br />
 						<span>
 							<CalendarOutlined /> {new Date().toDateString()}
 						</span>
