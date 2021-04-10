@@ -35,9 +35,7 @@ const Welcome: React.FC = () => {
 						<Option value='emt'>EMT</Option>
 					</OptGroup>
 					<OptGroup label='Managerial'>
-						<Option value='supervisor'>Supervisor</Option>
 						<Option value='manager'>Manager</Option>
-						<Option value='cmo'>CMO</Option>
 					</OptGroup>
 				</Select>
 				{role ? (
