@@ -42,11 +42,17 @@ const dataSource: ICallRow[] = new Array(50).fill(null).map<ICallRow>(() => {
 		firstName: faker.name.firstName(),
 		lastName: faker.name.lastName(),
 		treatment: {
-			treatmentDesc: faker.lorem.words(4),
+			treatmentDesc: [
+				'A transport to a hospital was made.',
+				'A first-aid kit was used to treat the victim.',
+			],
 			treatmentLocation: faker.address,
 		},
 		injuries: {
-			injuryDesc: faker.lorem.words(4),
+			injuryDesc: [
+				'A gunshot to the arm occurred.',
+				'A wound to the foot.',
+			],
 		},
 		status: faker.random.arrayElement(['Update', 'Update']),
 	};
@@ -79,7 +85,7 @@ const PatientPage: React.FC = () => {
 
 			// eslint-disable-next-line react/display-name
 			render: (treatment: ITreatmentRow) => (
-				<p>{treatment.treatmentDesc}</p>
+				<p>{treatment.treatmentDesc[1 + Math.random() * (1 - 1)]}</p>
 			),
 		},
 		{
@@ -88,7 +94,9 @@ const PatientPage: React.FC = () => {
 			key: 'injuries',
 
 			// eslint-disable-next-line react/display-name
-			render: (injuries: IInjuriesRow) => <p>{injuries.injuryDesc}</p>,
+			render: (injuries: IInjuriesRow) => (
+				<p>{injuries.injuryDesc[1 + Math.random() * (1 - 1)]}</p>
+			),
 		},
 		{
 			/*
